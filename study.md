@@ -188,6 +188,21 @@ fn error_handling(result: Result<i32, String>) -> Result<i32, Strting> {
 最初に`let`による束縛を試し、マッチしなかった場合に`else`の処理に流れていく
 `else`の処理の最後では、`break` `return` `panic!`などので処理を中断させる必要がある
 
+この構文は?演算子と違い、すぐにreturnせずにエラー処理ができる上に、
+`Result`や`Option`から値を取り出せる
+``` Rust
+fn error_handling(result: Result<i32, String>) -> Result<i32, String> {
+    let Ok(code) = result else {
+        let err - result.unwrap_err();
+        println!("Error occurred: {}", err);
+        return Err(err);
+    };
+
+    println!("code {}", code);
+    Ok(100)
+}
+```
+
 
 
 Resultにはさまざまな**シンタックスシュガー**[^2]が用意されている
